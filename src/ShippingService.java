@@ -1,9 +1,35 @@
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ShippingService
 {
-    public static void ship(Map<Shippable, Integer> shipment)
+    private Map<Shippable, Integer> shipment;
+    private double shipping;
+
+    public ShippingService()
     {
+        shipment = new LinkedHashMap<>();
+        shipping = 0;
+    }
+
+    public void putProduct(Product product, int quantity)
+    {
+        shipment.put((Shippable) product, quantity);
+        shipping += ((Shippable) product).getWeight() * quantity * 10;
+    }
+
+    public double getShipping()
+    {
+        return shipping;
+    }
+
+    public void ship()
+    {
+        if (shipment.isEmpty())
+        {
+            return;
+        }
+
         System.out.println("** Shipment notice **");
         double totalWeight = 0;
         for (Map.Entry<Shippable, Integer> entry : shipment.entrySet())

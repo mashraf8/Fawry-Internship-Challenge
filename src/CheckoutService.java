@@ -5,54 +5,41 @@ public class CheckoutService
 {
     public static void checkout(Customer customer, Cart cart)
     {
-        if (cart.isEmpty())
-        {
-            throw new IllegalStateException("Cart is empty.");
-        }
+        cart.assertNotEmpty();
 
         double subtotal = 0;
-        double shipping = 0;
-        LinkedHashMap<Shippable, Integer> shipment = new LinkedHashMap<>();
+        ShippingService shipment = new ShippingService();
+
 
         for (Map.Entry<Product, Integer> entry : cart.getItems().entrySet())
         {
             Product product = entry.getKey();
             int qty = entry.getValue();
 
+            product.inStock(qty);
+
             if (product instanceof Expirable && ((Expirable) product).isExpired())
             {
                 throw new IllegalStateException(product.getName() + " is expired.");
             }
 
-            if (qty > product.getQuantity())
+            if (product instanceof Shippable)
             {
-                throw new IllegalStateException(product.getName() + " is out of stock.");
+                shipment.putProduct(product, qty);
             }
 
             subtotal += qty * product.getPrice();
             product.reduceQuantity(qty);
-
-            if (product instanceof Shippable)
-            {
-                shipment.put((Shippable) product, qty);
-                shipping += ((Shippable) product).getWeight() * qty * 10;
-            }
         }
 
-        double total = subtotal + shipping;
-
-        if (customer.getBalance() < total)
-        {
-            throw new IllegalStateException("Customer insufficient balance.");
-        }
-
+        double total = subtotal + shipment.getShipping();
         customer.deduct(total);
 
-        if (!shipment.isEmpty())
-        {
-            ShippingService.ship(shipment);
-        }
+        //Print Shipping
+        shipment.ship();
 
+
+        //Print Receipt
         System.out.println("** Checkout receipt **");
         for (Map.Entry<Product, Integer> entry : cart.getItems().entrySet())
         {
@@ -60,7 +47,7 @@ public class CheckoutService
         }
         System.out.println("----------------------");
         System.out.printf("Subtotal %.0f\n", subtotal);
-        System.out.printf("Shipping %.0f\n", shipping);
+        System.out.printf("Shipping %.0f\n", shipment.getShipping());
         System.out.printf("Amount %.0f\n", total);
         System.out.printf("Customer Balance After Payment %.0f\n", customer.getBalance());
     }

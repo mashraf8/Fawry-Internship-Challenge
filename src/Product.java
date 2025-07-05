@@ -23,6 +23,13 @@ public abstract class Product
     {
         return quantity;
     }
+    public void inStock(int qty)
+    {
+        if (qty > getQuantity())
+        {
+            throw new IllegalStateException(getName() + " is out of stock.");
+        }
+    }
     public void reduceQuantity(int amount)
     {
         this.quantity -= amount;

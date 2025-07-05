@@ -3,21 +3,27 @@ import java.util.LinkedHashMap;
 
 public class Cart
 {
-    private Map<Product, Integer> items = new LinkedHashMap<>();
+    private Map<Product, Integer> items;
+
+    public Cart()
+    {
+        items = new LinkedHashMap<>();
+    }
 
     public void add(Product product, int quantity)
     {
-        if (quantity > product.getQuantity())
-        {
-            throw new IllegalStateException("Not enough quantity in stock.");
-        }
+        product.inStock(quantity);
         items.put(product, items.getOrDefault(product, 0) + quantity);
     }
 
-    public boolean isEmpty()
+    public void assertNotEmpty()
     {
-        return items.isEmpty();
+        if (items.isEmpty())
+        {
+            throw new IllegalStateException("Cart is empty.");
+        }
     }
+
     public Map<Product, Integer> getItems()
     {
         return items;
