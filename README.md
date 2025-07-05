@@ -1,4 +1,4 @@
-# E-commerce System Analysis And Design – Fawry Internship Challenge
+# E-commerce System Analysis And Design
 
 ### **1. Applied SOLID Principles**
 
@@ -46,3 +46,8 @@
 
 ### **4. UML Class Diagram**
 ![UML Class Diagram for E-commerce System](image/UML.png)
+
+## Note
+I noticed an unusual number of **clone operations** during the period allocated for solution .  
+This indicates the possibility that others might have used this solution without permission .
+
