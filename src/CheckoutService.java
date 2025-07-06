@@ -10,7 +10,6 @@ public class CheckoutService
         double subtotal = 0;
         ShippingService shipment = new ShippingService();
 
-
         for (Map.Entry<Product, Integer> entry : cart.getItems().entrySet())
         {
             Product product = entry.getKey();
@@ -37,7 +36,6 @@ public class CheckoutService
 
         //Print Shipping
         shipment.ship();
-
 
         //Print Receipt
         System.out.println("** Checkout receipt **");

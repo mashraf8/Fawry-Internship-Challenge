@@ -14,5 +14,4 @@ public class TV extends Product implements Shippable
         return weight;
     }
 
-
 }

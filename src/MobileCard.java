@@ -5,5 +5,4 @@ public class MobileCard extends Product
         super(name, price, quantity);
     }
 
-
 }

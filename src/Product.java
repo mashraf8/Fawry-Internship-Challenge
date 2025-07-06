@@ -15,14 +15,17 @@ public abstract class Product
     {
         return name;
     }
+
     public double getPrice()
     {
         return price;
     }
+
     public int getQuantity()
     {
         return quantity;
     }
+
     public void inStock(int qty)
     {
         if (qty > getQuantity())
@@ -30,6 +33,7 @@ public abstract class Product
             throw new IllegalStateException(getName() + " is out of stock.");
         }
     }
+
     public void reduceQuantity(int amount)
     {
         this.quantity -= amount;

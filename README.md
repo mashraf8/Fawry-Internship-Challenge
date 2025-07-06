@@ -30,8 +30,15 @@
 ### **2. Applied Design Patterns**
 
 * **Facade Pattern:**
-    * The `CheckoutService` The checkout process is complex, involving multiple steps: validating the cart, checking each product's validity, checking stock, calculating the subtotal, calculating shipping, verifying customer balance, debiting the amount and updating inventory.
-    * The `CheckoutService` hides all this complexity behind a very simple interface: a single method, `checkout(customer, cart)`. The client does not need to know any of these complex background details.
+  The `CheckoutService` acts as a **facade** that coordinates several **subsystems** involved in the checkout process. These subsystems include:
+
+  - **Cart validation**
+  - **Product validation**
+  - **Inventory checking and updating**
+  - **Shipping calculation and processing**
+  - **Customer balance verification and deduction**
+  - **Receipt generation**
+
 
 
 ### **3. Choice of Data Structures**
@@ -48,6 +55,6 @@
 ![UML Class Diagram for E-commerce System](image/UML.png)
 
 ## Note
-I noticed an unusual number of **clone operations** during the period allocated for solution .  
-This indicates the possibility that others might have used this solution without permission .
+I noticed an unusual number of clone operations during the period allocated for the solution. This indicates the possibility that others might have used this solution without permission.
+[Mohammed Ashraf](https://github.com/mashraf8/Fawry-Internship-Challenge.git)
 
